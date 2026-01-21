@@ -33,6 +33,9 @@ public class Person {
         return name;
     }
 
+    public void setName(String _name){
+        this.name = _name;
+    }
     public int getAge() {
         return age;
     }
