@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-
+                LocationFactory locationFactory = new LocationFactory();
                 Person Alice = new Person();
                 Alice.setName("Alice");
                 Alice.setAge(30);
@@ -25,9 +25,9 @@ public class Main {
                 Bill.setName("Bill");
                 Bill.setAge(50);
 
-                Location Main = new Location();
-                Location Secondary = new Location();
-                Location Water = new Location();
+                Location Main = locationFactory.CreateLocation();
+                Location Secondary = locationFactory.CreateLocation();
+                Location Water =locationFactory.CreateLocation();
 
                 Main.setAddress("123 Main Street");
                 Main.setPhoneNumber("555-1000");
@@ -74,5 +74,8 @@ public class Main {
                 System.out.println("\nLocation details:");
                 System.out.println(Alice.getName() + " is at " + Alice.getLocation());
                 System.out.println(Tom.getName() + " is at " + Tom.getLocation());
-            }
+                DisasterStrategy base_strat = new DisasterStrategy();
+                Main.setDisasterStrategy(base_strat);
+                Main.evacuationStrategy();
+    }
         }

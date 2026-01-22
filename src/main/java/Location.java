@@ -8,30 +8,26 @@ public class Location {
     private Vector<Person> occupants = new Vector<>();
     private DisasterStrategy response;
 
-    // ===== Core methods =====
 
-    // Add a person to the location
+    public Location(){
+    }
     public void addPerson(Person person) {
         person.setLocation(this);
         occupants.add(person);
     }
 
-    // Remove a person from the location
     public void removePerson(Person person) {
         occupants.remove(person);
     }
 
-    // Check if a person is in the location
     public boolean hasOccupant(Person person) {
         return occupants.contains(person);
     }
 
-    // Set disaster strategy
     public void setDisasterStrategy(DisasterStrategy strategy) {
         this.response = strategy;
     }
 
-    // Find an occupant by name
     public void findOccupant(String name) {
         for (Person p : occupants) {
             if (name.equals(p.getName())) {
@@ -42,21 +38,18 @@ public class Location {
         System.out.println(name + " not found at this location.");
     }
 
-    // Trigger evacuation strategy
     public void evacuationStrategy() {
         if (response != null) {
             response.evacuationStrategy();
         }
     }
 
-    // Trigger emergency broadcast
     public void emergencyBroadcast() {
         if (response != null) {
             response.emergencyBroadcast();
         }
     }
 
-    // ===== Getters and Setters =====
 
     public String getPhoneNumber() {
         return phoneNumber;
