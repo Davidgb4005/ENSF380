@@ -1,3 +1,5 @@
+package Location;
+
 public class DisasterStrategy {
 
     void evacuationStrategy() {

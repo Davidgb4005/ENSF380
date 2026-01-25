@@ -1,5 +1,7 @@
-import java.util.Vector;
+package Person;
 
+import java.util.Vector;
+import Location.Location;
 enum PersonState {
     INJURED,
     MISSING,
@@ -7,15 +9,24 @@ enum PersonState {
     INVOLVED,
     UNINVOLVED
 }
-
 enum PersonRole {
     STAFF,
     VOLUNTEER,
     CIVILIAN
 }
+enum Gender{
+    MALE,
+    FEMALE,
+    OTHER,
+    NONE
+}
 
 public class Person {
     private String name;
+    private Gender gender;
+    private String birthDate;
+    private String phoneNumber;
+    private int person_id;
     private int age;
     private int height;
     private int weight;
@@ -23,9 +34,8 @@ public class Person {
     private PersonState personState;
     private PersonRole personRole;
 
-    private String birthDate;
-    private String phoneNumber;
 
+    protected Person(){};
     private Vector<Person> relatives = new Vector<>();
     private Location location;
 
@@ -106,6 +116,13 @@ public class Person {
 
     public void setLocation(Location _location) {
         this.location = _location;
+    }
+
+    public int getPersonId(){
+        return person_id;
+    }
+    public void setPersonId(int _person_id){
+       person_id = _person_id;
     }
 }
 

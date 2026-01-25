@@ -1,3 +1,7 @@
+package Location;
+
+import Person.Person;
+
 import java.util.Vector;
 
 public class Location {
@@ -5,11 +9,13 @@ public class Location {
     private String phoneNumber;
     private String address;
     private Person locationCaptain;
+    private int location_id;
     private Vector<Person> occupants = new Vector<>();
-    private DisasterStrategy response;
+    public DisasterStrategy response;
 
 
-    public Location(){
+    protected Location(int _location_id){
+        location_id = _location_id;
     }
     public void addPerson(Person person) {
         person.setLocation(this);
@@ -76,7 +82,7 @@ public class Location {
     }
 
     public Vector<Person> getOccupants() {
-        return new Vector<>(occupants); // return a copy for safety
+        return new Vector<>(occupants);
     }
 
     public void setOccupants(Vector<Person> occupants) {
