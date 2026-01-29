@@ -2,34 +2,35 @@ package Person;
 
 import java.util.Vector;
 import Location.Location;
-enum PersonState {
-    INJURED,
-    MISSING,
-    DEAD,
-    INVOLVED,
-    UNINVOLVED
-}
-enum PersonRole {
-    STAFF,
-    VOLUNTEER,
-    CIVILIAN
-}
-enum Gender{
-    MALE,
-    FEMALE,
-    OTHER,
-    NONE
-}
 
 public class Person {
-    private String name;
-    private Gender gender;
-    private String birthDate;
-    private String phoneNumber;
-    private int person_id;
-    private int age;
-    private int height;
-    private int weight;
+    public enum PersonState {
+        INJURED,
+        MISSING,
+        DEAD,
+        INVOLVED,
+        UNINVOLVED
+    }
+    public enum PersonRole {
+        STAFF,
+        VOLUNTEER,
+        CIVILIAN
+    }
+    public enum Gender{
+        MALE,
+        FEMALE,
+        OTHER,
+        NONE
+    }
+    protected String name;
+    protected Gender gender;
+    protected String birthDate;
+    protected String phoneNumber;
+    protected int person_id;
+    protected int age;
+    protected int height;
+    protected int weight;
+    protected boolean is_child;
 
     private PersonState personState;
     private PersonRole personRole;
@@ -62,6 +63,9 @@ public class Person {
         this.height = height;
     }
 
+    public boolean isChild(){
+        return is_child;
+    }
     public int getWeight() {
         return weight;
     }
@@ -126,15 +130,3 @@ public class Person {
     }
 }
 
-class Child extends Person {
-
-    private Person guardian;
-
-    public Person getGuardian() {
-        return guardian;
-    }
-
-    public void setGuardian(Person guardian) {
-        this.guardian = guardian;
-    }
-}

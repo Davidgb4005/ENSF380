@@ -16,7 +16,11 @@ public class LocationFactory {
         return instance;
     }
 
-    public Location CreateLocation(){
-        return new Location(unique_id_counter++);
+    public Location CreateLocation(LocationData _location_data){
+        Location temp_location = new Location(unique_id_counter++);
+        temp_location.setLocationCaptain(_location_data.locationCaptain);
+        temp_location.setAddress(_location_data.address);
+        temp_location.setPhoneNumber(_location_data.phoneNumber);
+        return temp_location;
     }
 }

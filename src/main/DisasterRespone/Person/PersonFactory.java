@@ -14,8 +14,15 @@ public class PersonFactory {
         return instance;
     }
 
-    public Person createPerson(PersonData _person_data, Location _location) {
-        Person new_person = new Person();
+    public Person createPerson(PersonData _person_data, Location _location,boolean _is_child) {
+        Person new_person;
+        if (_is_child){
+            new_person = new Child();
+        }
+        else{
+            new_person = new Person();
+        }
+        new_person.is_child = _is_child;
         new_person.setPersonId(unique_id_counter);
         new_person.setLocation(_location);
         _location.addPerson(new_person);

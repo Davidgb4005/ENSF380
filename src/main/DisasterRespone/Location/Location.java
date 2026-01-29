@@ -1,6 +1,6 @@
 package Location;
 
-import Person.Person;
+import Person.*;
 
 import java.util.Vector;
 
@@ -21,7 +21,13 @@ public class Location {
         person.setLocation(this);
         occupants.add(person);
     }
-
+    public void deletePerson(Person person){
+        person.setLocation(null);
+        occupants.remove(person);
+    }
+    public int getLocationid(){
+        return location_id;
+    }
     public void removePerson(Person person) {
         occupants.remove(person);
     }
@@ -34,14 +40,14 @@ public class Location {
         this.response = strategy;
     }
 
-    public void findOccupant(String name) {
+    public Person findOccupant(int _id ) {
         for (Person p : occupants) {
-            if (name.equals(p.getName())) {
-                System.out.println(name + " is at " + this.address);
-                return;
+            if (p.getPersonId() == _id) {
+                return p;
             }
         }
-        System.out.println(name + " not found at this location.");
+        System.out.println("Person Does Not Exist At this Destination");
+        return null;
     }
 
     public void evacuationStrategy() {
