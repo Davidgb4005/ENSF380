@@ -4,55 +4,87 @@ import java.util.Vector;
 import Location.Location;
 
 public class Person {
+
+    // 1. Enums
     public enum PersonState {
-        INJURED,
-        MISSING,
-        DEAD,
-        INVOLVED,
-        UNINVOLVED
+        INJURED, MISSING, DEAD, INVOLVED, UNINVOLVED
     }
+
     public enum PersonRole {
-        STAFF,
-        VOLUNTEER,
-        CIVILIAN
+        STAFF, VOLUNTEER, CIVILIAN
     }
-    public enum Gender{
-        MALE,
-        FEMALE,
-        OTHER,
-        NONE
+
+    public enum Gender {
+        MALE, FEMALE, OTHER, NONE
     }
+
+    // 2. Fields / State
     protected String name;
     protected Gender gender;
     protected String birthDate;
     protected String phoneNumber;
-    protected int person_id;
+    protected int personId;
     protected int age;
     protected int height;
     protected int weight;
-    protected boolean is_child;
+    protected boolean isChild;
 
     private PersonState personState;
     private PersonRole personRole;
-
-
-    protected Person(){};
-    private Vector<Person> relatives = new Vector<>();
+    private Vector<Person> relatives = new Vector<Person>();
     private Location location;
 
-    public String getName(){
+    // 3. Constructor
+    protected Person() {}
+
+    // 4. Relationship & Specialized Logic
+    public String getLocation() {
+        return (location != null) ? location.getAddress() : "No Location Set";
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Vector<Person> getRelatives() {
+        return relatives;
+    }
+
+    public void setRelatives(Vector<Person> relatives) {
+        this.relatives = relatives;
+    }
+
+    // 5. Getters and Setters
+    public String getName() {
         return name;
     }
 
-    public void setName(String _name){
-        this.name = _name;
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+
     public int getAge() {
         return age;
     }
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public boolean isChild() {
+        return isChild;
+    }
+
+    public void setIsChild(boolean isChild) {
+        this.isChild = isChild;
     }
 
     public int getHeight() {
@@ -63,31 +95,12 @@ public class Person {
         this.height = height;
     }
 
-    public boolean isChild(){
-        return is_child;
-    }
     public int getWeight() {
         return weight;
     }
 
     public void setWeight(int weight) {
         this.weight = weight;
-    }
-
-    public PersonState getPersonState() {
-        return personState;
-    }
-
-    public void setPersonState(PersonState personState) {
-        this.personState = personState;
-    }
-
-    public PersonRole getPersonRole() {
-        return personRole;
-    }
-
-    public void setPersonRole(PersonRole personRole) {
-        this.personRole = personRole;
     }
 
     public String getBirthDate() {
@@ -106,27 +119,19 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
-    public Vector<Person> getRelatives() {
-        return relatives;
+    public PersonState getPersonState() {
+        return personState;
     }
 
-    public void setRelatives(Vector<Person> relatives) {
-        this.relatives = relatives;
+    public void setPersonState(PersonState personState) {
+        this.personState = personState;
     }
 
-    public  String getLocation() {
-        return location.getAddress();
+    public PersonRole getPersonRole() {
+        return personRole;
     }
 
-    public void setLocation(Location _location) {
-        this.location = _location;
-    }
-
-    public int getPersonId(){
-        return person_id;
-    }
-    public void setPersonId(int _person_id){
-       person_id = _person_id;
+    public void setPersonRole(PersonRole personRole) {
+        this.personRole = personRole;
     }
 }
-

@@ -4,11 +4,14 @@ import Person.PersonFactory;
 
 public class LocationFactory {
 
-    private static LocationFactory instance = null;  // single instance
-    private static int unique_id_counter = 0;      // unique IDs
+    // 1. Fields / State
+    private static LocationFactory instance = null;
+    private static int uniqueIdCounter = 0;
 
+    // 2. Private Constructor
     private LocationFactory() { }
 
+    // 3. Instance Accessor (Singleton)
     public static LocationFactory getInstance() {
         if (instance == null) {
             instance = new LocationFactory();
@@ -16,11 +19,14 @@ public class LocationFactory {
         return instance;
     }
 
-    public Location CreateLocation(LocationData _location_data){
-        Location temp_location = new Location(unique_id_counter++);
-        temp_location.setLocationCaptain(_location_data.locationCaptain);
-        temp_location.setAddress(_location_data.address);
-        temp_location.setPhoneNumber(_location_data.phoneNumber);
-        return temp_location;
+    // 4. Core Factory Logic
+    public Location createLocation(LocationData locationData) {
+        Location tempLocation = new Location(uniqueIdCounter++);
+
+        tempLocation.setLocationCaptain(locationData.locationCaptain);
+        tempLocation.setAddress(locationData.address);
+        tempLocation.setPhoneNumber(locationData.phoneNumber);
+
+        return tempLocation;
     }
 }

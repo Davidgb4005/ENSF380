@@ -1,21 +1,25 @@
 package Location;
 
 public abstract class DisasterStrategy {
-    int disaster_strategy_id;
-    String strategy_name;
+    // 1. Fields / State
+    private int disasterStrategyId;
+    private String strategyName;
 
-    abstract public void evacuationStrategy();
-    abstract public void emergencyBroadcast();
+    // 2. Abstract Methods (Contract for Subclasses)
+    public abstract void evacuationStrategy();
+    public abstract void emergencyBroadcast();
 
+    // 3. Concrete Getter
     public String getStrategyName() {
-        return this.strategy_name;
+        return this.strategyName;
     }
 
-   public void setStrategyName(String _name) {
-        if (_name == null) {
+    // 4. Concrete Setter with Validation
+    public void setStrategyName(String name) {
+        if (name == null) {
             System.out.println("Strategy Name cannot be null");
             return;
         }
-        this.strategy_name = _name;
+        this.strategyName = name;
     }
 }

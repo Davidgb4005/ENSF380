@@ -1,91 +1,99 @@
+package Location; // Assuming this lives in your main logic package
+
 import Person.*;
 import Location.*;
 import java.util.Vector;
 
 public class DisasterResponseFacade {
-    //Public API Function
-    private Vector<Location> location_list = new Vector<Location>();
-    private Vector<DisasterStrategy> disasterStrategies = new Vector<DisasterStrategy>();
+
+    // 1. Fields / State
+    private Vector<Location> locationList = new Vector<>();
+    private Vector<DisasterStrategy> disasterStrategies = new Vector<>();
     private LocationFactory locationFactory;
     private PersonFactory personFactory;
-    //Constructor
-    public DisasterResponseFacade(){
-        //Init Of All Singlton Factorys
-        locationFactory = LocationFactory.getInstance();
-        personFactory = PersonFactory.getInstance();
+
+    // 2. Constructor
+    public DisasterResponseFacade() {
+        // Init Of All Singleton Factories
+        this.locationFactory = LocationFactory.getInstance();
+        this.personFactory = PersonFactory.getInstance();
     }
 
-    public Location getLocation(int _id){
-        for (Location l : location_list){
-            if (l.getLocationid() == _id){
+    // 3. Location Management
+    public Location newLocation(LocationData locationData) {
+        Location tempLocation = locationFactory.createLocation(locationData);
+        locationList.add(tempLocation);
+        return tempLocation;
+    }
+
+    public Location getLocation(int id) {
+        for (Location l : locationList) {
+            if (l.getLocationid() == id) {
                 return l;
             }
         }
         return null;
     }
-    public Location NewLocation(LocationData _location_data){
-        Location temp_location = locationFactory.CreateLocation(_location_data);
-        location_list.add(temp_location);
-        return temp_location;
-    }
-    public int DestroyLocation(){
-        return -1;//Check how to Properly Delete in Java
-    }
-    public void SetLocationStrategy(Location location,DisasterStrategy strategy){
-        location.setDisasterStrategy(strategy);
+
+    public int destroyLocation() {
+        // In Java, "deletion" is handled by removing all references 
+        // to an object so the Garbage Collector can reclaim it.
+        return -1;
     }
 
-    public Person NewPerson(PersonData _person_data,Location _location,boolean _is_child){
-        Person temp_person = personFactory.createPerson(_person_data, _location,_is_child);
-        return temp_person;
+    // 4. Person Management
+    public Person newPerson(PersonData personData, Location location, boolean isChild) {
+        return personFactory.createPerson(personData, location, isChild);
     }
-    public Vector<Person> getPersonByName(String _name,Vector<Location> _location){
-        Vector<Person> person_matchs = new Vector<Person>();
-        Vector<Location>locations_to_search = _location;
 
-        if ( _location == null){
-            locations_to_search = location_list;
-        }
-        for (Location l :locations_to_search){
-            Vector<Person> occupants = l.getOccupants();
-            for (Person p : occupants) {
-                if (p.getName().equals(_name)){
-                    person_matchs.add(p);
-                }
-            }
-        }
-        return person_matchs;
-    }
-    public Vector<Child> getChildren(Vector<Location> _location){
-        Vector<Child> person_matchs = new Vector<Child>();
-        Vector<Location>locations_to_search = _location;
-
-        if ( _location == null){
-            locations_to_search = location_list;
-        }
-        for (Location l :locations_to_search){
-            Vector<Person> occupants = l.getOccupants();
-            for (Person p : occupants) {
-                if (p.isChild()){
-                    person_matchs.add((Child)p);
-                }
-            }
-        }
-        return person_matchs;
-    }
-    public void TransferPerson(Person person,Location src, Location dest){
+    public void transferPerson(Person person, Location src, Location dest) {
         src.deletePerson(person);
         dest.addPerson(person);
     }
 
-    public DisasterStrategy registerDisasterStratgy(DisasterStrategy _strategy , String _name){
-        disasterStrategies.add(_strategy);
-        _strategy.setStrategyName(_name);
-        return _strategy;
+    // 5. Search Logic
+    public Vector<Person> getPersonByName(String name, Vector<Location> locations) {
+        Vector<Person> personMatches = new Vector<>();
+        Vector<Location> locationsToSearch = (locations == null) ? locationList : locations;
+
+        for (Location l : locationsToSearch) {
+            for (Person p : l.getOccupants()) {
+                if (p.getName().equals(name)) {
+                    personMatches.add(p);
+                }
+            }
+        }
+        return personMatches;
     }
-    public DisasterStrategy getStrategyByName(String _name){
-        for (DisasterStrategy s : disasterStrategies){
-            if (s.getStrategyName().equals(_name)){
+
+    public Vector<Child> getChildren(Vector<Location> locations) {
+        Vector<Child> childrenFound = new Vector<>();
+        Vector<Location> locationsToSearch = (locations == null) ? locationList : locations;
+
+        for (Location l : locationsToSearch) {
+            for (Person p : l.getOccupants()) {
+                if (p.isChild()) {
+                    childrenFound.add((Child) p);
+                }
+            }
+        }
+        return childrenFound;
+    }
+
+    // 6. Strategy Management
+    public DisasterStrategy registerDisasterStrategy(DisasterStrategy strategy, String name) {
+        strategy.setStrategyName(name);
+        disasterStrategies.add(strategy);
+        return strategy;
+    }
+
+    public void setLocationStrategy(Location location, DisasterStrategy strategy) {
+        location.setDisasterStrategy(strategy);
+    }
+
+    public DisasterStrategy getStrategyByName(String name) {
+        for (DisasterStrategy s : disasterStrategies) {
+            if (s.getStrategyName().equals(name)) {
                 return s;
             }
         }

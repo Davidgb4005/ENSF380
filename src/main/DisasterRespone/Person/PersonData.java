@@ -1,23 +1,25 @@
 package Person;
 
-public class PersonData{
+public class PersonData {
 
+    // 1. Fields / State
     public String name;
     public Person.Gender gender;
     public String birthDate;
     public String phoneNumber;
-    public int person_id;
+    public int personId;
     public int age;
     public int height;
     public int weight;
     public Person.PersonState personState;
     public Person.PersonRole personRole;
 
+    // 2. Constructor
     public PersonData(String name,
                       Person.Gender gender,
                       String birthDate,
                       String phoneNumber,
-                      int person_id,
+                      int personId,
                       int age,
                       int height,
                       int weight,
@@ -28,7 +30,7 @@ public class PersonData{
         this.gender = gender;
         this.birthDate = birthDate;
         this.phoneNumber = phoneNumber;
-        this.person_id = person_id;
+        this.personId = personId;
         this.age = age;
         this.height = height;
         this.weight = weight;

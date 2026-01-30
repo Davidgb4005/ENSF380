@@ -1,34 +1,35 @@
 package Location;
 
 import Person.*;
-
 import java.util.Vector;
 
 public class Location {
 
+    // 1. Fields / State
+    private int locationId;
     private String phoneNumber;
     private String address;
     private Person locationCaptain;
-    private int location_id;
     private Vector<Person> occupants = new Vector<>();
     public DisasterStrategy response;
 
-
-    protected Location(int _location_id){
-        location_id = _location_id;
+    // 2. Constructor
+    protected Location(int locationId) {
+        this.locationId = locationId;
     }
+
+    // 3. Occupant Management Logic
     public void addPerson(Person person) {
         person.setLocation(this);
         occupants.add(person);
     }
-    public void deletePerson(Person person){
-        person.setLocation(null);
+
+    public void removePerson(Person person) {
         occupants.remove(person);
     }
-    public int getLocationid(){
-        return location_id;
-    }
-    public void removePerson(Person person) {
+
+    public void deletePerson(Person person) {
+        person.setLocation(null);
         occupants.remove(person);
     }
 
@@ -36,13 +37,9 @@ public class Location {
         return occupants.contains(person);
     }
 
-    public void setDisasterStrategy(DisasterStrategy strategy) {
-        this.response = strategy;
-    }
-
-    public Person findOccupant(int _id ) {
+    public Person findOccupant(int id) {
         for (Person p : occupants) {
-            if (p.getPersonId() == _id) {
+            if (p.getPersonId() == id) {
                 return p;
             }
         }
@@ -50,6 +47,7 @@ public class Location {
         return null;
     }
 
+    // 4. Disaster Strategy Execution
     public void evacuationStrategy() {
         if (response != null) {
             response.evacuationStrategy();
@@ -62,6 +60,10 @@ public class Location {
         }
     }
 
+    // 5. Getters and Setters
+    public int getLocationid() {
+        return locationId;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -101,5 +103,9 @@ public class Location {
 
     public void setResponse(DisasterStrategy response) {
         this.response = response;
+    }
+
+    public void setDisasterStrategy(DisasterStrategy strategy) {
+        this.response = strategy;
     }
 }
